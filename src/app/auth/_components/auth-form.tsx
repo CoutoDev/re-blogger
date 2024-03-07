@@ -1,10 +1,21 @@
+'use client'
+
+import { useForm } from "react-hook-form"
+import Link from "next/link"
+
+
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 export function AuthForm() {
+  const form = useForm()
+
+  const handleSubmit = form.handleSubmit((data) => {
+    console.log(data)
+  })
+
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader className="space-y-1">
@@ -12,13 +23,13 @@ export function AuthForm() {
         <CardDescription>Enter your email below to receive a magic link to login</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="m@example.com" required type="email" />
+            <Input id="email" placeholder="m@example.com" required type="email" {...form.register("email")} />
           </div>
           <Button className="w-full">Send Magic Link</Button>
-        </div>
+        </form>
         <div className="mt-4 text-center text-sm">
           Already have a magic link?
           <Link className="underline" href="#">
